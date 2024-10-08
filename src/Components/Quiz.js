@@ -73,6 +73,7 @@ const Quiz = () => {
   const reset = () => {
     setIndex(0);
     setQuestion(data[0]);
+    setAnswers(shuffle(data[0].options));
     setScore(0);
     setLock(false);
     setResult(false);
