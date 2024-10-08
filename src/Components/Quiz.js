@@ -6,8 +6,8 @@ const Quiz = () => {
   let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(data[index]);
   let [lock, setLock] = useState(false);
-  let [score, setScore] = useState(17);
-  let [result, setResult] = useState(true);
+  let [score, setScore] = useState(0);
+  let [result, setResult] = useState(false);
   let [answers, setAnswers] = useState(data[index].options);
 
   let Option1 = useRef(null);
