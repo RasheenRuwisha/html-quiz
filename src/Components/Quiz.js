@@ -93,7 +93,7 @@ const Quiz = () => {
           <button onClick={reset}>Reset</button>
         </div>
       );
-    } else if (score > 5 && score < 10) {
+    } else if (score >= 5 && score < 10) {
       return (
         <div>
           <h2 className="score">
@@ -106,7 +106,7 @@ const Quiz = () => {
           <button onClick={reset}>Reset</button>
         </div>
       );
-    } else if (score > 10 && score < 15) {
+    } else if (score >= 10 && score < 15) {
       return (
         <div>
           <h2 className="score">
@@ -119,7 +119,7 @@ const Quiz = () => {
           <button onClick={reset}>Reset</button>
         </div>
       );
-    } else if (score > 15) {
+    } else if (score >= 15) {
       return (
         <div>
           <h2 className="score">
