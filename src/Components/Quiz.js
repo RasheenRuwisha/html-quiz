@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 import "./Quiz.css";
 import { data } from "../assets/data";
+import { Highlight, themes } from "prism-react-renderer";
+import indent from "indent.js";
 
 const Quiz = () => {
   let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(data[index]);
+  let [code, setCode] = useState(data[index]);
   let [lock, setLock] = useState(false);
   let [score, setScore] = useState(0);
   let [result, setResult] = useState(false);
@@ -61,6 +64,7 @@ const Quiz = () => {
       }
       setIndex(++index);
       setQuestion(data[index]);
+      setCode(data[index]);
       setAnswers(shuffle(data[index].options));
       setLock(false);
       option_array.map((option) => {
@@ -73,10 +77,11 @@ const Quiz = () => {
   const reset = () => {
     setIndex(0);
     setQuestion(data[0]);
-    setAnswers(shuffle(data[0].options));
+    setCode(data[0]);
     setScore(0);
     setLock(false);
     setResult(false);
+    setAnswers(shuffle(data[0].options));
   };
 
   const setScoreView = () => {
@@ -93,7 +98,7 @@ const Quiz = () => {
           <button onClick={reset}>Reset</button>
         </div>
       );
-    } else if (score >= 5 && score < 10) {
+    } else if (score > 5 && score < 10) {
       return (
         <div>
           <h2 className="score">
@@ -106,7 +111,7 @@ const Quiz = () => {
           <button onClick={reset}>Reset</button>
         </div>
       );
-    } else if (score >= 10 && score < 15) {
+    } else if (score > 10 && score < 15) {
       return (
         <div>
           <h2 className="score">
@@ -119,7 +124,7 @@ const Quiz = () => {
           <button onClick={reset}>Reset</button>
         </div>
       );
-    } else if (score >= 15) {
+    } else if (score > 15) {
       return (
         <div>
           <h2 className="score">
@@ -137,15 +142,31 @@ const Quiz = () => {
 
   return (
     <div className="container">
-      <h1> HTML QUIZ </h1>
+      <h1> JAVASCRIPT QUIZ </h1>
       <hr />
       {result ? (
         setScoreView()
       ) : (
         <div>
-          <h2>
-            {index + 1}. {question.question}
-          </h2>
+          <h2>{question.question}</h2>
+          <Highlight
+            theme={themes.vsDark}
+            code={code.code}
+            language="javascript"
+          >
+            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              <pre style={style}>
+                {tokens.map((line, i) => (
+                  <div key={i} {...getLineProps({ line })}>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token })} />
+                    ))}
+                  </div>
+                ))}
+              </pre>
+            )}
+          </Highlight>
+          <br />
           <ul>
             <li
               ref={Option1}
